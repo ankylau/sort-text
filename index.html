@@ -1,0 +1,245 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" /> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>在线文本排序 </title>
+	<meta name="keywords" content="在线文本排序,文本排序工具" />
+	<meta name="description" content="文本排序工具按字母顺序或自然顺序对无序列表进行排序。您可以按升序或降序进行排序。您也可以根据字符长度/宽度进行排序。" />
+
+ <link rel="stylesheet"	href="css/index.css" /> <link rel="stylesheet" href="css/bootstrap.min.css " /> 
+ <script type='text/javascript' src='js/jquery.min.js'></script>     
+ <style>.related-links li{float:left;width:220px;overflow:hidden}</style>
+</head>
+  <body>
+
+ <div class="container"> 
+ <main role="main" class="pb-3 mt-3">
+ <div class="row">
+ <div class="col-12 my-1">
+ <div id="ezoic-pub-ad-placeholder-102"></div></div></div>
+ <div class="row">
+ <div class="col-sm-12   mb-3" id="mid">
+ <h1>文本排序工具</h1> 
+ <div class="info-form">
+  <link rel="stylesheet" href="css/text.css" /> 
+<p>
+	使用此工具可按字母顺序或自然顺序对无序列表进行排序。您可以按升序或降序排序。您还可以根据字符长度/宽度进行排序。
+</p>
+<div class="widget w-100">
+	<div class="widget-body">
+<div class="calc">
+	<div class="clear">
+		<div class="left hidden-xs-down">
+			<div class="dropdown">
+				<button type="button" class="btn btn-secondary btn-sm dropdown-trigger">文件</button> 
+				<div class="dropdown-menu" style="display:none;">
+					<a href="#" id="file_new"><i class="i-page"></i><span>新建</span></a> <span class="file-button" tabindex="0"><input type="file" id="file_upload" accept=".txt" /> <label for="file_upload"><i class="i-openfolder"></i><span> 打开文件...</span></label> </span><a href="#" id="file_download"><i class="i-save"></i><span> 另存为...</span></a> 
+					<hr />
+					<a href="#" id="file_print"><i class="i-print"></i><span> 打印</span></a> 
+				</div>
+			</div>
+			<div class="dropdown">
+				<button type="button" class="btn btn-secondary btn-sm dropdown-trigger">编辑</button> 
+				<div class="dropdown-menu" style="display:none;">
+					<a href="#" id="edit_undo"><i class="i-undo"></i><span> 撤销</span></a> <a href="#" id="edit_redo"><i class="i-redo"></i><span> 重做</span></a> 
+					<hr />
+					<a href="#" id="edit_copy"><i class="i-copy"></i><span> 复制</span></a> <a href="#" id="edit_delete"><i class="i-delete"></i><span> 删除</span></a> <a href="#" id="edit_select"><i class="i-selectall"></i><span> 全选</span></a> 
+				</div>
+			</div>
+		</div>
+		<div class="right xs-left xs-100">
+			<span class="left switch spacer-r xs-left xs-100" tabindex="0"><input type="checkbox" id="caseSen" /> <label for="caseSen">区分大小写</label> </span><span class="left spacer-l xs-right xs-100 xs-spacer-n"><select id="settings" class="input-sm xs-100"><option value="1">按字母排序 (A-Z)</option><option value="2">按字母排序 (Z-A)</option><option value="3" selected="selected">自然排序 (A-Z)</option><option value="4">自然排序 (Z-A)</option><option value="5">字长长度</option><option value="6">反向</option><option value="7">随机排序</option></select></span> 
+		</div>
+	</div>
+<style>#input_output{height:500px;background:#efefef}@media (max-width:768px){#input_output{height:400px}}@media (max-width:414px){#input_output{height:476px}}@media (max-width:412px){#input_output{height:471px}}@media (max-width:384px){#input_output{height:380px}}@media (max-width:375px){#input_output{height:407px}}@media (max-width:360px){#input_output{height:380px}}@media (max-width:320px){#input_output{height:308px}}</style>
+	<div id="main" class="spacer-y">
+		<span style="font-size:14px;">文本内容</span><br />
+<textarea id="input_output" spellcheck="false" style="font-family:Arial;font-size:16px;" class="form-control"></textarea> 
+		<div class="clipboard">
+			<span class="tooltipped tooltipped-n" aria-label="点击复制" role="button" _=""><i class="i-copy"></i></span> 
+		</div>
+	</div>
+	<div class="clear">
+		<div class="right xs-100 xs-left">
+			<button id="sortText" type="button" class="btn btn-primary xs-left">点击排序</button> <button id="clearAll" type="button" class="btn btn-secondary xs-right">重置</button> 
+		</div>
+	</div>
+</div>
+</div>
+</div> 
+ </div>
+ 
+ </div></div>
+ 
+ <div class="row"> 
+	<div class="col-sm-10  offset-sm-1 text-center">
+	<div id="result" class="alert alert-primary  my-2 text-break" style="display:none"> 
+	</div> 
+	</div></div>
+	<div class="row">
+	<div class="col-12 my-1">
+	<div id="ezoic-pub-ad-placeholder-103"></div></div></div>
+	<div class="row my-4">
+ 
+<div class="col-sm-12">
+ 
+<header class="widget-header">
+<h2>
+	<br />
+</h2>
+<h2>
+	排序方式
+</h2>
+</header>
+<hr />
+<p>
+	使用此工具对文本行进行排序有三种不同的方法。
+</p>
+<ul style="box-sizing:border-box;margin-bottom:1.5rem;line-height:1.5;margin-top:0px;color:#24292F;font-family:&quot;font-size:16px;white-space:normal;background-color:#FFFFFF;">
+	<li style="box-sizing:border-box;padding:0px;">
+		<p style="box-sizing:border-box;margin-top:0px;margin-bottom:1.5rem;">
+			<span style="box-sizing:border-box;font-weight:600;">字母顺序</span>&nbsp;- 字母顺序排序是计算机对文本进行排序的传统方式。按顺序比较每个字符，第一个字母在字母表中较早的字符串 （A-Z） 排在最前面。这也适用于数字 （0-9）。
+		</p>
+	</li>
+	<li style="box-sizing:border-box;padding:0px;">
+		<p style="box-sizing:border-box;margin-top:0px;margin-bottom:1.5rem;">
+			<span style="box-sizing:border-box;font-weight:600;">自然顺序</span>&nbsp;- 自然排序被认为是机器字母排序的更人性化的实现。非个位数数字（如“10”、“11”、“12”及以上）被视为单个实体，并按数字值排序。如果您正在使用编号列表，则应使用此方法。
+		</p>
+	</li>
+	<li style="box-sizing:border-box;padding:0px;">
+		<p style="box-sizing:border-box;margin-top:0px;margin-bottom:1.5rem;">
+			<span style="box-sizing:border-box;font-weight:600;">按字符长度</span>&nbsp;- 您可以根据文本的长度/宽度对列表进行排序。字符长度较短的字符串在列表中排在第一位，最长的字符串排在最后。
+		</p>
+	</li>
+</ul>
+<header class="widget-header">
+<h2>
+	基本示例
+</h2>
+</header>
+<hr />
+<span><span style="box-sizing:border-box;font-weight:600;">按字母顺序排序</span>&nbsp;- 在下面的给定示例中，“A10”在“A2”之前排在第一位，因为“1”大于“1”。<span style="box-sizing:border-box;font-weight:600;">自然排序</span><span style="box-sizing:border-box;font-weight:600;">字符长度</span></span> 
+<pre style="box-sizing:border-box;margin-top:0px;margin-bottom:1.5rem;max-height:none;overflow-y:auto;background:#F8F9FA;padding:1rem;color:#24292F;font-size:16px;">A1
+A10
+A2</pre>
+<pre style="box-sizing:border-box;margin-top:0px;margin-bottom:1.5rem;max-height:none;overflow-y:auto;background:#F8F9FA;padding:1rem;color:#24292F;font-size:16px;">A1
+A2
+A10</pre>
+<pre style="box-sizing:border-box;margin-top:0px;margin-bottom:1.5rem;max-height:none;overflow-y:auto;background:#F8F9FA;padding:1rem;color:#24292F;font-size:16px;">A
+AA
+AAA
+</pre>
+<header class="widget-header">
+<h2>
+	反向
+</h2>
+</header>
+<hr />
+<p>
+	使用此选项将颠倒文本的顺序。
+</p>
+<span>示例：按字符长度排序后反转。</span> 
+<pre style="box-sizing:border-box;margin-top:0px;margin-bottom:1.5rem;max-height:none;overflow-y:auto;background:#F8F9FA;padding:1rem;color:#24292F;font-size:16px;">AAA
+AA
+A</pre>
+<header class="widget-header">
+<h2>
+	如何按降序对列表进行排序
+</h2>
+</header>
+<hr />
+<p>
+	默认情况下，文本按升序排序。如果要按降序（9-0 和 Z-A）对列表进行排序，可以在按字母顺序或自然顺序排序后使用反向选项。
+</p>
+<p>
+	<span style="box-sizing:border-box;font-weight:600;">更新：</span>现在，您可以使用 Z-A 选项直接按降序排序。
+</p>
+<header class="widget-header">
+<h3>
+	如何随机对列表进行排序
+</h3>
+</header>
+<hr />
+<p>
+	您可以使用<span style="box-sizing:border-box;font-weight:600;">随机播放</span>按不按特定顺序对文本进行排序。它随机排列列表。
+</p>
+
+<script type='text/javascript' src="js/toast.js"></script> 	
+<script> 
+function naturalSort(e,a){"use strict";function r(e){return naturalSort.insensitive&&(""+e).toLowerCase()||""+e}var t,n,i=/(^([+\-]?(?:0|[1-9]\d*)(?:\.\d*)?(?:[eE][+\-]?\d+)?)?$|^0x[0-9a-f]+$|\d+)/gi,l=/(^[ ]*|[ ]*$)/g,p=/(^([\w ]+,?[\w ]+)?[\w ]+,?[\w ]+\d+:\d+(:\d+)?[\w ]?|^\d{1,4}[\/\-]\d{1,4}[\/\-]\d{1,4}|^\w+, \w+ \d+, \d{4})/,c=/^0x[0-9a-f]+$/i,s=/^0/,e=r(e).replace(l,"")||"",a=r(a).replace(l,"")||"",f=e.replace(i,"\0$1\0").replace(/\0$/,"").replace(/^\0/,"").split("\0"),u=a.replace(i,"\0$1\0").replace(/\0$/,"").replace(/^\0/,"").split("\0"),l=parseInt(e.match(c),16)||1!==f.length&&e.match(p)&&Date.parse(e),i=parseInt(a.match(c),16)||l&&a.match(p)&&Date.parse(a)||null;if(i){if(l<i)return-1;if(i<l)return 1}for(var d=0,o=Math.max(f.length,u.length);d<o;d++){if(t=!(f[d]||"").match(s)&&parseFloat(f[d])||f[d]||0,n=!(u[d]||"").match(s)&&parseFloat(u[d])||u[d]||0,isNaN(t)!==isNaN(n))return isNaN(t)?1:-1;if(typeof t!=typeof n&&(t+="",n+=""),t<n)return-1;if(n<t)return 1}return 0}
+var area=$("#input_output"),examples=JSON.parse(localStorage.getItem("ta_examples"));function loadText(){var e=$("#file_upload").get(0).files[0],t=new FileReader;t.onload=function(e){e=e.target.result;area.val(e)},t.readAsText(e,"UTF-8")}function saveText(e,t){var n=navigator.userAgent.match(/MSIE\s([\d.]+)/),r=navigator.userAgent.match(/Trident\/7.0/)&&navigator.userAgent.match(/rv:11/),a=navigator.userAgent.match(/Edge/g),r=n?n[1]:r?11:a?12:-1;n&&r<10?console.log("No blobs on IE ver<10"):(t=(t=document.getElementById("input_output").value).replace(/\r?\n/g,"\r\n"),a=new Blob([t],{type:"text/plain"}),"null.txt"!=(e=prompt("File name:","New Document")+".txt")&&(-1<r?window.navigator.msSaveBlob(a,e):((n=document.createElement("a")).download=e,n.href=window.URL.createObjectURL(a),n.onclick=function(e){document.body.removeChild(e.target)},n.style.display="none",document.body.appendChild(n),n.click())))}function printTextArea(){(childWindow=window.open("","childWindow","location=yes, menubar=yes, toolbar=yes")).document.open(),childWindow.document.write('<html><head></head><body style="word-wrap:break-word;"><style>.ap_container,.google-auto-placed,.adsbygoogle{display:none}</style>'),childWindow.document.write(document.getElementById("input_output").value.replace(/\n/gi,"<br>")),childWindow.document.write("</body></html>"),childWindow.print(),childWindow.document.close(),childWindow.close()}1==examples&&area.val("Tomato\nNutmeg\nZucchini\nMango\nLettuce\nBlueberry\nHorseradish\nGrape\nApple\nEggplant\nPineapple\nKale\nStrawberry\napple\nRadish\nCherry\nOrange\nDewberry\nWatermelon"),$("#sortText").click(function(){Remember();var e=area.val().replace(/\r\n|\r|\n/gm,"\n").split("\n"),t=$("#settings").val();if(1==t)n="Sorted alphabetically (A-Z)",e=1==$("#caseSen").prop("checked")?e.sort():e.sort(function(e,t){return e.toLowerCase().localeCompare(t.toLowerCase())});else if(2==t)n="Sorted alphabetically (Z-A)",e=(e=1==$("#caseSen").prop("checked")?e.sort():e.sort(function(e,t){return e.toLowerCase().localeCompare(t.toLowerCase())})).reverse();else if(3==t)n="Sorted naturally (A-Z)",1==$("#caseSen").prop("checked")?naturalSort.insensitive=!1:naturalSort.insensitive=!0,e=e.sort(naturalSort);else if(4==t)n="Sorted naturally (Z-A)",1==$("#caseSen").prop("checked")?naturalSort.insensitive=!1:naturalSort.insensitive=!0,e=(e=e.sort(naturalSort)).reverse();else if(5==t)n="Sorted by character length",e=e.sort(function(e,t){return e.length-t.length});else if(6==t)n="Reversed",e=e.reverse();else if(7==t)for(var n="Shuffled",r=e,a=r.length-1;0<a;a--){var o=Math.floor(Math.random()*(a+1)),i=r[a];r[a]=r[o],r[o]=i}e=e.join("\n"),area.val(e),Toast(n),Remember()}),$("#settings").on("change",function(){var e=$("#settings").val();1<=e&&e<=4?$(".switch").show():$(".switch").hide()}),$(".clipboard").click(function(){Clipboard(area)}),$("#clearAll, #edit_delete, #file_new").click(function(){area.val(""),Remember()}),$("#file_upload").on("change",function(){loadText()}),$("#file_download").click(function(){saveText()}),$("#file_print").click(function(){printTextArea()}),$("#edit_undo").click(function(){var e=History.undo();void 0!==e&&area.val(e)}),$("#edit_redo").click(function(){var e=History.redo();void 0!==e&&area.val(e)}),$("#edit_copy").click(function(){Clipboard(area)}),$("#edit_select").click(function(){area.select().focus()});var History=function(){var t=[],n=0;return{remember:function(e){t[n-1]!==e&&(t.splice(n,10),t.push(e),t.splice(0,t.length-10),n=t.length)},undo:function(){if(1<n)return t[--n-1]},redo:function(){if(n<t.length)return t[n++]}}}();function Remember(){var e=area.val();History.remember(e)}Remember();
+</script></div>
+ 
+
+ 
+	</div>
+	</main>
+	</div>
+    
+      <div class="footer">
+	<hr>
+            <div class="container">
+                <div class="footer__inner ">
+                           
+                    <div class="footer__item ">
+					
+                     <a href="https://www.bchrt.com/intro/aboutus">关于我们</a> | <a href="https://www.bchrt.com/intro/service">服务条款</a> | <a href="https://www.bchrt.com/intro/adv">广告合作</a> | <a href="https://www.bchrt.com/intro/privacy" >隐私政策</a> 
+   
+                    </div>
+					<p > &copy; 2008 - 2022 <a href="https://www.bchrt.com">木鱼查询</a> </p>
+                </div>
+            </div>
+        </div>
+		  
+  </body>
+ <script>
+        function completed(t) {
+          var e = t.responseText; 
+		  e = e .replace(/(\r\n)/gm, "<br>");
+          $("#result").html(e),
+            $("#result").show(),
+            copyToClipboard(document.getElementById("result"));
+        }
+        $(document).ready(function () {
+          $('[data-toggle="tooltip"]').tooltip();
+        });
+      </script>
+      <script>
+        function copyToClipboard(e) {
+          var t,
+            o,
+            n,
+            s,
+            d,
+            a = "_hiddenCopyText_",
+            c = "INPUT" === e.tagName || "TEXTAREA" === e.tagName;
+            c ? ((t = (n = e).selectionStart), (o = e.selectionEnd))
+            : ((n = document.getElementById(a)) ||
+                (((n = document.createElement("textarea")).style.position =
+                  "absolute"),
+                (n.style.left = "-9999px"),
+                (n.style.top = "0"),
+                (n.id = a),
+                document.body.appendChild(n)),
+              (n.textContent = e.textContent)),
+            (s = document.activeElement),
+            n.focus(),
+            n.setSelectionRange(0, n.value.length);
+          try {
+            d = document.execCommand("copy");
+          } catch (e) {
+            d = !1;
+          }
+          return (
+            s && "function" == typeof s.focus && s.focus(),
+            c ? e.setSelectionRange(t, o) : (n.textContent = ""),
+            d
+          );
+        }
+        
+      </script>
+ <script src="https://www.bchrt.com/Public/js/unobtrusive.js"></script>
+ <script src="https://www.bchrt.com/Public/js/bootstrap.bundle.min.js" ></script> 
+</html>
