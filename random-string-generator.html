@@ -1,0 +1,175 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" /> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>随机字符串生成器  -  在线随机字符生成</title>
+	<meta name="keywords" content="随机字符串生成器,随机字符生成" />
+	<meta name="description" content="随机字符串生成器可以从定义的长度和字符集随机生成一个或多个字符串。一次最多可以生成10000个随机字符串" />
+
+ <link rel="stylesheet"	href="css/index.css" /> <link rel="stylesheet" href="css/bootstrap.min.css " /> 
+<script type='text/javascript' src='js/jquery.min.js'></script>     
+ <style>.related-links li{float:left;width:220px;overflow:hidden}</style>
+</head>
+  <body>
+ <div class="container"> 
+ <main role="main" class="pb-3 mt-3">
+ <div class="row">
+ <div class="col-12 my-1">
+ <div id="ezoic-pub-ad-placeholder-102"></div></div></div>
+ <div class="row">
+ <div class="col-sm-12   mb-3" id="mid">
+ <h1>随机字符串生成器</h1> 
+ <div class="info-form">
+  <link rel="stylesheet" href="css/text.css" />
+<div class="widget w-100">
+ 
+	<div class="widget-body">
+		<div class="clear">
+			<div class="left hidden-sm-down">
+				<div class="dropdown">
+					<button type="button" class="btn btn-secondary btn-sm dropdown-trigger" >文件</button>
+					<div class="dropdown-menu" _msthidden="3" style="display:none;">
+						<a href="#" id="file_new" ><i class="i-page"></i><span>新建</span></a> 
+						<a href="#" id="file_download" ><i class="i-save"></i><span>另存为...</span></a>
+						<hr />
+						<a href="#" id="file_print" ><i class="i-print"></i><span>打印</span></a>
+					</div>
+				</div>
+				<div class="dropdown">
+					<button type="button" class="btn btn-secondary btn-sm dropdown-trigger" >编辑</button>
+					<div class="dropdown-menu" _msthidden="5" style="display:none;">
+						<a href="#" id="edit_undo" ><i class="i-undo"></i><span>撤销</span></a> 
+						<a href="#" id="edit_redo" ><i class="i-redo"></i><span>重做</span></a>
+						<hr />
+						<a href="#" id="edit_copy" ><i class="i-copy"></i><span>复制</span></a> 
+						<a href="#" id="edit_delete" ><i class="i-delete"></i><span>删除</span></a> 
+						<a href="#" id="edit_select" ><i class="i-selectall"></i><span>全选</span></a>
+					</div>
+				</div>
+			</div>
+			<div class="right clear xs-100 xs-spacer-y xs-100 sm-left">
+				<span class="left checkbox spacer-r xs-50" tabindex="0"><input type="checkbox" id="A-Z" checked="checked" /> <label for="A-Z" >大写</label> </span><span class="left checkbox spacer-l spacer-r xs-50" tabindex="0"><input type="checkbox" id="a-z" checked="checked" /> <label for="a-z" >小写</label> </span><span class="left checkbox spacer-l spacer-r xs-50" tabindex="0"><input type="checkbox" id="num_0-9" /> <label for="num_0-9" >数字</label> </span><span class="left checkbox spacer-l xs-50" tabindex="0"><input type="checkbox" id="symbols" /> <label for="symbols" >符号</label></span>
+			</div>
+		</div>
+		<div class="clear w-100 spacer-n">
+			<div class="left xs-100">
+				<div class="form-group left xs-spacer-n xs-100">
+					<label for="strAmount" >数量</label> <input id="strAmount" type="number" min="1" step="1" max="1000" oninput="validity.valid||(value=&quot;&quot;)" value="5" class="input-sm xs-right" style="width:70px;" />
+				</div>
+				<div class="form-group left xs-spacer-n xs-100">
+					<label for="strLength" class="spacer-l" >长度</label> <input id="strLength" type="number" min="1" step="1" max="1000" oninput="validity.valid||(value=&quot;&quot;)" value="12" class="input-sm xs-right" style="width:70px;" />
+				</div>
+			</div>
+			<div class="right xs-100">
+				<span class="left spacer-l xs-100 xs-spacer-n"><select id="strSeparator" class="input-sm xs-100"><option disabled="disabled" selected="selected" >分隔符</option><option value="linebreak" >换行符</option><option value="comma" >逗点</option><option value="space" >空间</option><option value="comma+space" >逗号+空格</option></select></span>
+			</div>
+		</div>
+<style>#input_output{height:479px}@media (max-width:768px){#input_output{height:391px}}@media (max-width:414px){#input_output{height:467px}}@media (max-width:412px){#input_output{height:462px}}@media (max-width:384px){#input_output{height:371px}}@media (max-width:375px){#input_output{height:398px}}@media (max-width:360px){#input_output{height:371px}}@media (max-width:320px){#input_output{height:299px}}</style>
+		<div class="main2 spacer-y">
+			<label for="input_output" >文本内容</label> <textarea id="input_output" style="font-family:Consolas, Courier, Monacoo, monospace;font-size:16px;" spellcheck="false"></textarea>
+			<div class="clipboard">
+				<span class="tooltipped tooltipped-n" aria-label="点击复制" role="button"><i class="i-copy"></i></span>
+			</div>
+		</div>
+		<div class="clear">
+			<div class="right xs-100 xs-left">
+				<button id="generateStr" type="button" class="btn xs-left" >生成</button> <button id="clearAll" type="button" class="btn btn-secondary xs-right" >重置</button>
+			</div>
+		</div>
+	</div>
+</div> 
+ </div>
+ 
+ </div></div>
+ 
+ <div class="row"> 
+	<div class="col-sm-10  offset-sm-1 text-center">
+	<div id="result" class="alert alert-primary  my-2 text-break" style="display:none"> 
+	</div> 
+	</div></div>
+	<div class="row">
+	<div class="col-12 my-1">
+	<div id="ezoic-pub-ad-placeholder-103"></div></div></div>
+	<div class="row my-4">
+ 
+<div class="col-sm-12">
+ 
+<p>
+	使用此工具从定义的长度和字符集随机生成一个或多个字符串。您一次最多可以生成 10，000 个随机字符串。
+</p>
+<script type="text/javascript" src="js/toast.js"></script>
+<script> 
+var area=$("#input_output"),examples=JSON.parse(localStorage.getItem("ta_examples"));function generateRandomStrings(){var t=parseInt($("#strAmount").val(),10),e=$("#strSeparator").val(),n=[];for(let e=0;e<t;e++)n.push(generateString());return escapeHtml(n="comma"==e?n.join(","):"space"==e?n.join(" "):"comma+space"==e?n.join(", "):n.join("\n")),n}function generateString(){for(var e={},t=(e["str-length"]=$("#strLength").val(),e["alpha-lower"]=!!$("#a-z").is(":checked"),e["alpha-upper"]=!!$("#A-Z").is(":checked"),e.numbers=!!$("#num_0-9").is(":checked"),e.symbols=!!$("#symbols").is(":checked"),""),n=(e["alpha-lower"]&&(t+="abcdefghijklmnopqrstuvwxyz"),e["alpha-upper"]&&(t+="ABCDEFGHIJKLMNOPQRSTUVWXYZ"),e.numbers&&(t+="1234567890"),e.symbols&&(t+="`~!@#$%^&*()_-+={}[]\\|:;\"'<>,.?/"),t.replace(/[0O1IlB8\|]/g,""),""),a=0;a<e["str-length"];a++)n+=t.charAt(Math.floor(Math.random()*t.length));return n}function escapeHtml(e){return e.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;")}function saveText(e,t){var n=navigator.userAgent.match(/MSIE\s([\d.]+)/),a=navigator.userAgent.match(/Trident\/7.0/)&&navigator.userAgent.match(/rv:11/),r=navigator.userAgent.match(/Edge/g),a=n?n[1]:a?11:r?12:-1;n&&a<10?console.log("No blobs on IE ver<10"):(t=(t=document.getElementById("input_output").value).replace(/\r?\n/g,"\r\n"),r=new Blob([t],{type:"text/plain"}),"null.txt"!=(e=prompt("File name:","New Document")+".txt")&&(-1<a?window.navigator.msSaveBlob(r,e):((n=document.createElement("a")).download=e,n.href=window.URL.createObjectURL(r),n.onclick=function(e){document.body.removeChild(e.target)},n.style.display="none",document.body.appendChild(n),n.click())))}function printTextArea(){(childWindow=window.open("","childWindow","location=yes, menubar=yes, toolbar=yes")).document.open(),childWindow.document.write('<html><head></head><body style="word-wrap:break-word;"><style>.ap_container,.google-auto-placed,.adsbygoogle{display:none}</style>'),childWindow.document.write(document.getElementById("input_output").value.replace(/\n/gi,"<br>")),childWindow.document.write("</body></html>"),childWindow.print(),childWindow.document.close(),childWindow.close()}1==examples&&area.val(generateRandomStrings()),$("#generateStr").click(function(){Remember();var e=generateRandomStrings();area.val(e),Remember()}),$(".clipboard").click(function(){Clipboard(area)}),$("#clearAll, #edit_delete, #file_new").click(function(){$(".alert").hide(),area.val(""),Remember()}),$("#file_download").click(function(){saveText()}),$("#file_print").click(function(){printTextArea()}),$("#edit_undo").click(function(){var e=History.undo();void 0!==e&&area.val(e)}),$("#edit_redo").click(function(){var e=History.redo();void 0!==e&&area.val(e)}),$("#edit_copy").click(function(){Clipboard(area)}),$("#edit_select").click(function(){area.select().focus()});var History=function(){var t=[],n=0;return{remember:function(e){t[n-1]!==e&&(t.splice(n,10),t.push(e),t.splice(0,t.length-10),n=t.length)},undo:function(){if(1<n)return t[--n-1]},redo:function(){if(n<t.length)return t[n++]}}}();function Remember(){var e=area.val();History.remember(e)}Remember();
+</script></div>
+ 
+
+ 
+	</div>
+	</main>
+	</div>
+    
+      <div class="footer">
+	<hr>
+            <div class="container">
+                <div class="footer__inner ">
+                           
+                    <div class="footer__item ">
+					
+                     <a href="#">关于我们</a> | <a href="#">服务条款</a> | <a href="#">广告合作</a> | <a href="#" >隐私政策</a> 
+   
+                    </div>
+					<p > &copy; 2024 <a href="https://anky.cc">ANKY.CC</a> </p>
+                </div>
+            </div>
+        </div>
+		  
+  </body>
+ <script>
+        function completed(t) {
+          var e = t.responseText; 
+		  e = e .replace(/(\r\n)/gm, "<br>");
+          $("#result").html(e),
+            $("#result").show(),
+            copyToClipboard(document.getElementById("result"));
+        }
+        $(document).ready(function () {
+          $('[data-toggle="tooltip"]').tooltip();
+        });
+      </script>
+      <script>
+        function copyToClipboard(e) {
+          var t,
+            o,
+            n,
+            s,
+            d,
+            a = "_hiddenCopyText_",
+            c = "INPUT" === e.tagName || "TEXTAREA" === e.tagName;
+            c ? ((t = (n = e).selectionStart), (o = e.selectionEnd))
+            : ((n = document.getElementById(a)) ||
+                (((n = document.createElement("textarea")).style.position =
+                  "absolute"),
+                (n.style.left = "-9999px"),
+                (n.style.top = "0"),
+                (n.id = a),
+                document.body.appendChild(n)),
+              (n.textContent = e.textContent)),
+            (s = document.activeElement),
+            n.focus(),
+            n.setSelectionRange(0, n.value.length);
+          try {
+            d = document.execCommand("copy");
+          } catch (e) {
+            d = !1;
+          }
+          return (
+            s && "function" == typeof s.focus && s.focus(),
+            c ? e.setSelectionRange(t, o) : (n.textContent = ""),
+            d
+          );
+        }
+        
+      </script>
+</html>

@@ -1,0 +1,229 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" /> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>在线文本拆分 - 文本列表拆分工具</title>
+	<meta name="keywords" content="文本拆分,文本拆分工具,文本列表拆分" />
+	<meta name="description" content="文本拆分工具通过将单列文本拆分为单独的列，撤消串联或取消合并文本文档。" />
+
+ <link rel="stylesheet"	href="css/index.css" /> <link rel="stylesheet" href="css/bootstrap.min.css " /> 
+<script type='text/javascript' src='js/jquery.min.js'></script>     
+ <style>.related-links li{float:left;width:220px;overflow:hidden}</style>
+</head>
+  <body> 
+ <div class="container"> 
+ <main role="main" class="pb-3 mt-3">
+ <div class="row">
+ <div class="col-12 my-1">
+ <div id="ezoic-pub-ad-placeholder-102"></div></div></div>
+ <div class="row">
+ <div class="col-sm-12   mb-3" id="mid">
+ <h1>文本拆分工具</h1> 
+ <div class="info-form">
+  <link rel="stylesheet" href="css/text.css" />
+<div class="widget w-100">
+	<header class="widget-header">
+</header>
+	<div class="widget-body">
+		<div class="clear before" id="pre-split">
+			<div class="left hidden-xs-down">
+				<div class="dropdown">
+					<button type="button" class="btn btn-secondary btn-sm dropdown-trigger">文件</button> 
+					<div class="dropdown-menu" style="display:none;">
+						<a href="#" id="file_new"><i class="i-page"></i>新建</a> <span class="file-button" tabindex="0"><input type="file" id="file_upload" accept=".txt" /> <label for="file_upload"><i class="i-openfolder"></i>打开...</label> </span><a href="#" id="file_download"><i class="i-save"></i>另存为...</a> 
+						<hr />
+						<a href="#" id="file_print"><i class="i-print"></i>打印</a> 
+					</div>
+				</div>
+				<div class="dropdown">
+					<button type="button" class="btn btn-secondary btn-sm dropdown-trigger">编辑</button> 
+					<div class="dropdown-menu" style="display:none;">
+						<a href="#" id="edit_copy"><i class="i-copy"></i>复制</a> <a href="#" id="edit_delete"><i class="i-delete"></i>删除</a> <a href="#" id="edit_select"><i class="i-selectall"></i>全选</a> 
+					</div>
+				</div>
+			</div>
+			<div class="right xs-left xs-100 xs-spacer-n">
+				<select id="settings" class="input-sm xs-100"><option value="1">拆分为列</option><option value="2">拆分为行</option></select> 
+			</div>
+		</div>
+		<div class="clear w-100 spacer-n xs-spacer-n before">
+			<div class="form-group left spacer-r xs-100 xs-spacer-n" id="column-num">
+				<label for="colNum">列数:</label> <input id="colNum" value="4" class="input-sm xs-right" style="width:100px;" /> 
+			</div>
+			<div class="form-group left xs-100 xs-spacer-n">
+				<label for="delimitStr">分隔符:</label> <input id="delimitStr" value="—" class="input-sm xs-right" style="width:100px;" /> 
+			</div>
+		</div>
+<style>#input_output{height:479px}@media (max-width:768px){#input_output{height:400px}}@media (max-width:414px){#input_output{height:467px}}@media (max-width:412px){#input_output{height:462px}}@media (max-width:384px){#input_output{height:371px}}@media (max-width:375px){#input_output{height:398px}}@media (max-width:360px){#input_output{height:371px}}@media (max-width:320px){#input_output{height:299px}}.tb_table{width:100%;display:table}.tb_tr{display:table-row}.tb_cell{display:table-cell}.tb_cell textarea{height:100%;height:479px;margin:0}</style>
+		<div class="before">
+			<div id="main" class="spacer-y">
+				<label for="input_output">Input/output</label> <textarea id="input_output" spellcheck="false" style="font-family:Arial;font-size:16px;"></textarea> 
+				<div class="clipboard">
+					<span class="tooltipped tooltipped-n" aria-label="Click to copy" role="button"><i class="i-copy"></i></span> 
+				</div>
+			</div>
+			<div class="clear">
+				<div class="right xs-100 xs-left">
+					<button id="splitText" type="button" class="btn xs-left">拆分</button> <button id="clearAll" type="button" class="btn btn-secondary xs-right">重置</button> 
+				</div>
+			</div>
+		</div>
+		<div class="after none xs-spacer-n">
+			<div class="tb_table spacer-n spacer-s xs-spacer-n xs-spacer-s">
+				<div class="tb_tr">
+				</div>
+			</div>
+			<div class="clear">
+				<div class="right xs-100 xs-left xs-spacer-n">
+					<button id="goBack" type="button" class="btn xs-left">返回</button> 
+				</div>
+			</div>
+		</div>
+	</div>
+</div> 
+ </div>
+ 
+ </div></div>
+ 
+ <div class="row"> 
+	<div class="col-sm-10  offset-sm-1 text-center">
+	<div id="result" class="alert alert-primary  my-2 text-break" style="display:none"> 
+	</div> 
+	</div></div>
+	<div class="row">
+	<div class="col-12 my-1">
+	<div id="ezoic-pub-ad-placeholder-103"></div></div></div>
+	<div class="row my-4">
+ 
+<div class="col-sm-12">
+ 
+<p style="box-sizing:border-box;margin-top:0px;margin-bottom:1.5rem;color:#24292F;font-family:&quot;font-size:16px;white-space:normal;">
+	使用此工具可将文本拆分为两列或更多列。您还可以按换行符拆分文本。请注意，您必须指定分隔符，无论是逗号、空格还是任何有效字符。列必须由相同的分隔符分隔并遵循相同的格式，否则将无法正确提取和拆分提供的数据。在 Excel 中撤消连接功能可能非常耗时。当您尝试取消合并单列文本时，此工具会很方便。
+</p>
+<header class="widget-header" style="box-sizing:border-box;color:#24292F;font-family:&quot;font-size:16px;white-space:normal;">
+<h3>
+	拆分为列
+</h3>
+</header>
+<hr>
+<p style="box-sizing:border-box;margin-top:0px;margin-bottom:1.5rem;color:#24292F;font-family:&quot;font-size:16px;white-space:normal;">
+	这与<span style="color:#0969da;"><span style="box-sizing:border-box;">连接文本工具</span></span>相反。它提取每一列并将它们放入单独的单元格中。
+</p>
+<p style="box-sizing:border-box;margin-top:0px;margin-bottom:1.5rem;color:#24292F;font-family:&quot;font-size:16px;white-space:normal;">
+	<span style="box-sizing:border-box;">示例：使用逗号后跟空格作为分隔符将名字和姓氏拆分为两列。</span><code style="box-sizing:border-box;font-size:0.875rem;background:#F8F9FA;padding:0.2rem 0.4rem;">,</code> 
+</p>
+<pre style="box-sizing:border-box;margin-top:0px;margin-bottom:1.5rem;max-height:none;overflow-y:auto;background:#F8F9FA;padding:1rem;color:#24292F;font-size:16px;">Brown, Paul
+Davis, Mark
+Smith, James</pre>
+<span style="box-sizing:border-box;color:#24292F;font-family:&quot;font-size:16px;white-space:normal;">结果</span> 
+<div class="clear" style="box-sizing:border-box;overflow:visible;color:#24292F;font-family:&quot;font-size:16px;white-space:normal;">
+	<div class="w-50 left spacer-r" style="box-sizing:border-box;float:left;width:367.625px;padding-right:1rem;">
+		<span style="box-sizing:border-box;">第 1 栏</span> 
+<pre style="box-sizing:border-box;margin-top:0px;margin-bottom:1.5rem;max-height:none;overflow-y:auto;background:#F8F9FA;padding:1rem;">Brown
+Davis
+Smith</pre>
+	</div>
+	<div class="w-50 left spacer-l" style="box-sizing:border-box;float:left;width:367.625px;padding-left:1rem;">
+		<span style="box-sizing:border-box;">第 2 栏</span> 
+<pre style="box-sizing:border-box;margin-top:0px;margin-bottom:1.5rem;max-height:none;overflow-y:auto;background:#F8F9FA;padding:1rem;">Paul
+Mark
+James</pre>
+	</div>
+</div>
+<header class="widget-header" style="box-sizing:border-box;color:#24292F;font-family:&quot;font-size:16px;white-space:normal;">
+<h3>
+	按换行拆分
+</h3>
+</header>
+<hr>
+<p style="box-sizing:border-box;margin-top:0px;margin-bottom:1.5rem;color:#24292F;font-family:&quot;font-size:16px;white-space:normal;">
+	<span style="box-sizing:border-box;">这会将分隔符替换为换行符。如果要逐行断开文本，请选择此选项。</span><code style="box-sizing:border-box;font-size:0.875rem;background:#F8F9FA;padding:0.2rem 0.4rem;">\n</code> 
+</p>
+<p style="box-sizing:border-box;margin-top:0px;margin-bottom:1.5rem;color:#24292F;font-family:&quot;font-size:16px;white-space:normal;">
+	<span style="box-sizing:border-box;">示例：使用逗号作为分隔符按换行符拆分。</span><code style="box-sizing:border-box;font-size:0.875rem;background:#F8F9FA;padding:0.2rem 0.4rem;">,</code> 
+</p>
+<pre style="box-sizing:border-box;margin-top:0px;margin-bottom:1.5rem;max-height:none;overflow-y:auto;background:#F8F9FA;padding:1rem;color:#24292F;font-size:16px;">Alaska,California,Florida,Hawaii,Indiana,Kentucky</pre>
+<span style="box-sizing:border-box;color:#24292F;font-family:&quot;font-size:16px;white-space:normal;">结果</span> 
+<pre style="box-sizing:border-box;margin-top:0px;margin-bottom:1.5rem;max-height:none;overflow-y:auto;background:#F8F9FA;padding:1rem;color:#24292F;font-size:16px;">Alaska
+California
+Florida
+Hawaii
+Indiana
+Kentucky</pre>
+<script type="text/javascript" src="js/toast.js"></script>
+<script>  
+var area=$("#input_output"),examples=JSON.parse(localStorage.getItem("ta_examples"));function loadText(){var e=$("#file_upload").get(0).files[0],t=new FileReader;t.onload=function(e){e=e.target.result;area.val(e)},t.readAsText(e,"UTF-8")}function saveText(e,t){var n=navigator.userAgent.match(/MSIE\s([\d.]+)/),a=navigator.userAgent.match(/Trident\/7.0/)&&navigator.userAgent.match(/rv:11/),o=navigator.userAgent.match(/Edge/g),a=n?n[1]:a?11:o?12:-1;n&&a<10?console.log("No blobs on IE ver<10"):(t=(t=document.getElementById("input_output").value).replace(/\r?\n/g,"\r\n"),o=new Blob([t],{type:"text/plain"}),"null.txt"!=(e=prompt("File name:","New Document")+".txt")&&(-1<a?window.navigator.msSaveBlob(o,e):((n=document.createElement("a")).download=e,n.href=window.URL.createObjectURL(o),n.onclick=function(e){document.body.removeChild(e.target)},n.style.display="none",document.body.appendChild(n),n.click())))}function printTextArea(){(childWindow=window.open("","childWindow","location=yes, menubar=yes, toolbar=yes")).document.open(),childWindow.document.write('<html><head></head><body style="word-wrap:break-word;"><style>.ap_container,.google-auto-placed,.adsbygoogle{display:none}</style>'),childWindow.document.write(document.getElementById("input_output").value.replace(/\n/gi,"<br>")),childWindow.document.write("</body></html>"),childWindow.print(),childWindow.document.close(),childWindow.close()}1==examples&&area.val("A1—B1—C1—D1\nA2—B2—C2—D2\nA3—B3—C3—D3\nA4—B4—C4—D4\nA5—B5—C5—D5"),$("#splitText").click(function(){var e=area.val().replace(/\r\n|\r|\n/gm,"\n"),t=$("#settings").val(),n=$("#colNum").val(),a=$("#delimitStr").val();if(1==t){var o,l,e=e.trim().split("\n");for($(".tb_tr").html(""),o=0;o<n;o++)$(".tb_tr").append('<div class="tb_cell main"><textarea id="tb_col_'+(o+1)+'"></textarea></div>');for(o=0;o<e.length;o++)for(col_arr=e[o].split(a),l=0;l<col_arr.length;l++)temp="#tb_col_"+(l+1),$(temp).val($(temp).val()+col_arr[l]+"\n");$(".before").hide(),$(".after").show(),Toast("Splitted into "+n+" columns")}else 2==t&&(e=e.replace(new RegExp("("+a+")","g"),"\n"),area.val(e),Toast("Splitted by new line"))}),$("#settings").on("change",function(){var e=$("#settings").val();1==e?$("#column-num").show():2==e&&$("#column-num").hide()}),$("#goBack").click(function(){$(".after").hide(),$(".before").show()}),$(".clipboard").click(function(){Clipboard(area)}),$("#clearAll, #edit_delete").click(function(){area.val("")}),$("#file_new").click(function(){area.val(""),$(".after").hide(),$(".before").show()}),$("#file_upload").on("change",function(){loadText()}),$("#file_download").click(function(){saveText()}),$("#file_print").click(function(){printTextArea()}),$("#edit_copy").click(function(){Clipboard(area)}),$("#edit_select").click(function(){area.select().focus()});
+</script> </div>
+ 
+
+ 
+	</div>
+	</main>
+	</div>
+    
+      <div class="footer">
+	<hr>
+            <div class="container">
+                <div class="footer__inner ">
+                           
+                    <div class="footer__item ">
+					
+                     <a href="#">关于我们</a> | <a href="#">服务条款</a> | <a href="#">广告合作</a> | <a href="#" >隐私政策</a> 
+   
+                    </div>
+					<p > &copy; 2024 <a href="https://anky.cc">ANKY.CC</a> </p>
+                </div>
+            </div>
+        </div>
+		  
+  </body>
+ <script>
+        function completed(t) {
+          var e = t.responseText; 
+		  e = e .replace(/(\r\n)/gm, "<br>");
+          $("#result").html(e),
+            $("#result").show(),
+            copyToClipboard(document.getElementById("result"));
+        }
+        $(document).ready(function () {
+          $('[data-toggle="tooltip"]').tooltip();
+        });
+      </script>
+      <script>
+        function copyToClipboard(e) {
+          var t,
+            o,
+            n,
+            s,
+            d,
+            a = "_hiddenCopyText_",
+            c = "INPUT" === e.tagName || "TEXTAREA" === e.tagName;
+            c ? ((t = (n = e).selectionStart), (o = e.selectionEnd))
+            : ((n = document.getElementById(a)) ||
+                (((n = document.createElement("textarea")).style.position =
+                  "absolute"),
+                (n.style.left = "-9999px"),
+                (n.style.top = "0"),
+                (n.id = a),
+                document.body.appendChild(n)),
+              (n.textContent = e.textContent)),
+            (s = document.activeElement),
+            n.focus(),
+            n.setSelectionRange(0, n.value.length);
+          try {
+            d = document.execCommand("copy");
+          } catch (e) {
+            d = !1;
+          }
+          return (
+            s && "function" == typeof s.focus && s.focus(),
+            c ? e.setSelectionRange(t, o) : (n.textContent = ""),
+            d
+          );
+        }
+        
+      </script>
+
+</html>

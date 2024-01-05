@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" /> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>在线查找和替换工具 - 文字查找和替换</title>
+	<meta name="keywords" content="查找和替换工具，文字查找和替换" />
+	<meta name="description" content="查找和替换工具用于查找文本文档中出现的单词的所有实例并将其替换为另一个单词。在编辑文本时，此工具将自动查找所有完全匹配项，点击按钮即可实现查找和替换。。" />
+<link rel="stylesheet" href="../css/bootstrap.min.css " /> 
+<script type='text/javascript' src='../js/jquery.min.js'></script>     
+</head>
+  <body>
+  	
+  <div class="info-form">
+  <style>
+@media (max-width: 581px){
+.w-50{ width: 100%;}
+}
+</style>
+<link rel="stylesheet" href="../css/text.css" />
+<div class="widget w-100">
+	<div class="widget-body">
+<div class="ca">
+	<div class="clear">
+		<div class="left hidden-xs-down">
+			<div class="dropdown">
+				<button type="button" class="btn btn-secondary btn-sm dropdown-trigger"><span style="color:#24292f;font-family:'roboto flex, -apple-system, BlinkMacSystemFont, segoe ui, Ubuntu, helvetica neue, Arial, sans-serif';"><span style="font-size:16px;background-color:#FFFFFF;">&nbsp;</span></span>文件</button> 
+				<div class="dropdown-menu" style="display:none;">
+					<a href="#" id="file_new"><i class="i-page"></i><span>新建</span></a> <span class="file-button" tabindex="0"><input type="file" id="file_upload" accept=".txt" /> <label for="file_upload"><i class="i-openfolder"></i><span> 打开文件...</span></label> </span><a href="#" id="file_download"><i class="i-save"></i><span> 另存为...</span></a> 
+					<hr />
+					<a href="#" id="file_print"><i class="i-print"></i><span> 打印</span></a> 
+				</div>
+			</div>
+			<div class="dropdown">
+				<button type="button" class="btn btn-secondary btn-sm dropdown-trigger">编辑</button> 
+				<div class="dropdown-menu" style="display:none;">
+					<a href="#" id="edit_undo"><i class="i-undo"></i><span> 撤销</span></a> <a href="#" id="edit_redo"><i class="i-redo"></i><span> 重做</span></a> 
+					<hr />
+					<a href="#" id="edit_copy"><i class="i-copy"></i><span> 复制</span></a> <a href="#" id="edit_delete"><i class="i-delete"></i><span> 删除</span></a> <a href="#" id="edit_select"><i class="i-selectall"></i><span> 全选</span></a> 
+				</div>
+			</div>
+		</div>
+		<div class="right xs-100 xs-left">
+			<span class="switch left spacer-r xs-50 xs-left" tabindex="0"><input type="checkbox" id="caseSen" /> <label for="caseSen">区分大小写</label> </span><span class="switch left spacer-l xs-50 xs-left" tabindex="0"><input type="checkbox" id="wholeWords" /> <label for="wholeWords">全字匹配</label></span> 
+		</div>
+	</div>
+	<div class="w-100 clear margin-y">
+		<div class="col-6 left spacer-r xs-100 main">
+			<label for="find">查找字符</label><textarea id="find" class="margin-0" spellcheck="false" style="font-family:Arial;font-size:16px;"></textarea> 
+		</div>
+		<div class="col-6 left spacer-l xs-100 main xs-spacer-n">
+			<label for="replace">替换字符</label> <textarea id="replace" class="margin-0" spellcheck="false" style="font-family:Arial;font-size:16px;"></textarea> 
+		</div>
+	</div>
+<style>#input_output{height:500px}@media (max-width:768px){#input_output{height:400px}}@media (max-width:414px){#input_output{height:514px}}@media (max-width:412px){#input_output{height:509px}}@media (max-width:384px){#input_output{height:418px}}@media (max-width:375px){#input_output{height:445px}}@media (max-width:360px){#input_output{height:418px}}@media (max-width:320px){#input_output{height:346px}}</style>
+	<div id="main" class="spacer-s">
+		<label for="input_output">文本内容</label><textarea id="input_output" class="margin-0" spellcheck="false" style="font-family:Arial;font-size:16px;"></textarea> 
+		<div class="clipboard">
+			<span class="tooltipped tooltipped-n" aria-label="Click to copy" role="button" _mstaria-label="184340"><i class="i-copy"></i></span> 
+		</div>
+	</div>
+	<div class="clear xs-spacer-n">
+		<span class="left hidden-xs-down" id="instances">已替换: 0</span> 
+		<div class="right xs-100 xs-left">
+			<button id="replaceAll" type="button" class="btn xs-left">点击替换</button> <button id="clearAll" type="button" class="btn btn-secondary xs-right">重置</button> 
+		</div>
+	</div>
+</div>
+</div></div> 
+ </div>
+<script type='text/javascript' src="../js/toast.js"></script> 	 
+<script> var area=$("#input_output"),examples=JSON.parse(localStorage.getItem("ta_examples")),counter=(1==examples&&(area.val("The quick brown fox jumps over the lazy dog.\nThe quick brown fox jumps over the lazy dog.\nThe quick brown fox jumps over the lazy dog."),$("#find").val("dog"),$("#replace").val("cat")),0);function resetCount(){$("#instances").html("Replaced: 0")}function loadText(){var e=$("#file_upload").get(0).files[0],t=new FileReader;t.onload=function(e){e=e.target.result;area.val(e)},t.readAsText(e,"UTF-8")}function saveText(e,t){var n=navigator.userAgent.match(/MSIE\s([\d.]+)/),o=navigator.userAgent.match(/Trident\/7.0/)&&navigator.userAgent.match(/rv:11/),a=navigator.userAgent.match(/Edge/g),o=n?n[1]:o?11:a?12:-1;n&&o<10?console.log("No blobs on IE ver<10"):(t=(t=document.getElementById("input_output").value).replace(/\r?\n/g,"\r\n"),a=new Blob([t],{type:"text/plain"}),"null.txt"!=(e=prompt("File name:","New Document")+".txt")&&(-1<o?window.navigator.msSaveBlob(a,e):((n=document.createElement("a")).download=e,n.href=window.URL.createObjectURL(a),n.onclick=function(e){document.body.removeChild(e.target)},n.style.display="none",document.body.appendChild(n),n.click())))}function printTextArea(){(childWindow=window.open("","childWindow","location=yes, menubar=yes, toolbar=yes")).document.open(),childWindow.document.write('<html><head></head><body style="word-wrap:break-word;"><style>.ap_container,.google-auto-placed,.adsbygoogle{display:none}</style>'),childWindow.document.write(document.getElementById("input_output").value.replace(/\n/gi,"<br>")),childWindow.document.write("</body></html>"),childWindow.print(),childWindow.document.close(),childWindow.close()}$("#replaceAll").click(function(){Remember();var e=area.val().replace(/\r/gi,""),t=$("#find").val().replace(/\r/gi,"").replace(/([.*+?^=!:${}()|\[\]\/\\])/g,"\\$1"),n=$("#replace").val().replace(/\r/gi,""),o=(o=$("#caseSen").prop("checked")?"g":"gi",t=$("#wholeWords").prop("checked")?new RegExp("\\b"+t+"\\b",o):new RegExp(t,o),counter=0,e.match(t));counter=null!=o?o.length:0,e=e.replace(t,n),$("#instances").html("Replaced: "+counter),area.val(e),0==counter?Toast("No matches found"):Toast("Made "+counter+" replacements"),Remember()}),$(".clipboard").click(function(){Clipboard(area)}),$("#clearAll, #edit_delete").click(function(){area.val(""),resetCount(),Remember()}),$("#file_new").click(function(){$("#find,#replace,#input_output").val(""),resetCount(),Remember()}),$("#file_upload").on("change",function(){loadText(),resetCount()}),$("#file_download").click(function(){saveText()}),$("#file_print").click(function(){printTextArea()}),$("#edit_undo").click(function(){var e=History.undo();void 0!==e&&area.val(e),resetCount()}),$("#edit_redo").click(function(){var e=History.redo();void 0!==e&&area.val(e),resetCount()}),$("#edit_copy").click(function(){Clipboard(area)}),$("#edit_select").click(function(){area.select().focus()});var History=function(){var t=[],n=0;return{remember:function(e){t[n-1]!==e&&(t.splice(n,10),t.push(e),t.splice(0,t.length-10),n=t.length)},undo:function(){if(1<n)return t[--n-1]},redo:function(){if(n<t.length)return t[n++]}}}();function Remember(){var e=area.val();History.remember(e)}Remember();
+</script>
+		  
+  </body>
+ <script>
+        function completed(t) {
+          var e = t.responseText; 
+		  e = e .replace(/(\r\n)/gm, "<br>");
+          $("#result").html(e),
+            $("#result").show(),
+            copyToClipboard(document.getElementById("result"));
+        }
+        $(document).ready(function () {
+          $('[data-toggle="tooltip"]').tooltip();
+        });
+      </script>
+      <script>
+        function copyToClipboard(e) {
+          var t,
+            o,
+            n,
+            s,
+            d,
+            a = "_hiddenCopyText_",
+            c = "INPUT" === e.tagName || "TEXTAREA" === e.tagName;
+            c ? ((t = (n = e).selectionStart), (o = e.selectionEnd))
+            : ((n = document.getElementById(a)) ||
+                (((n = document.createElement("textarea")).style.position =
+                  "absolute"),
+                (n.style.left = "-9999px"),
+                (n.style.top = "0"),
+                (n.id = a),
+                document.body.appendChild(n)),
+              (n.textContent = e.textContent)),
+            (s = document.activeElement),
+            n.focus(),
+            n.setSelectionRange(0, n.value.length);
+          try {
+            d = document.execCommand("copy");
+          } catch (e) {
+            d = !1;
+          }
+          return (
+            s && "function" == typeof s.focus && s.focus(),
+            c ? e.setSelectionRange(t, o) : (n.textContent = ""),
+            d
+          );
+        }
+        
+      </script>
+</html>

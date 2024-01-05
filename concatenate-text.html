@@ -1,0 +1,222 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" /> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>文本列表连接 - 在线列表合并 </title>
+	<meta name="keywords" content="文本列表连接,在线列表合并" />
+	<meta name="description" content="文本列表连接工具将两个列表与添加自定义前缀、后缀和分隔符的选项组合在一起。当您想逐行连接或合并两个文本文档时，此工具很有用" />
+ <link rel="stylesheet"	href="css/index.css" /> <link rel="stylesheet" href="css/bootstrap.min.css " /> 
+<script type='text/javascript' src='js/jquery.min.js'></script>     
+ <style>.related-links li{float:left;width:220px;overflow:hidden}</style>
+</head>
+  <body>
+ <div class="container"> 
+ <main role="main" class="pb-3 mt-3">
+ <div class="row">
+ <div class="col-12 my-1">
+ <div id="ezoic-pub-ad-placeholder-102"></div></div></div>
+ <div class="row">
+ <div class="col-sm-12   mb-3" id="mid">
+ <h1>文本列表连接工具</h1> 
+ <div class="info-form">
+  <link rel="stylesheet" href="css/text.css" />
+<div class="widget w-100">
+	 
+	<div class="widget-body">
+		<div class="clear xs-spacer-n xs-spacer-s">
+			<div class="left">
+				<div id="file_upload" class="dropdown">
+					<button type="button" class="btn btn-secondary btn-sm dropdown-trigger"><i class="fa fa-folder-open-o"></i><span>载入</span></button> 
+					<div class="dropdown-menu" style="display:none;" _mstvisible="0">
+						<span class="file-button" tabindex="0" _mstvisible="1"><input type="file" id="upload_colA" onchange="loadTextA()" accept=".txt" _mstvisible="2" /> <label for="upload_colA" _mstvisible="2">列 A</label> </span><span class="file-button" tabindex="0" _mstvisible="1"><input type="file" id="upload_colB" onchange="loadTextB()" accept=".txt" _mstvisible="2" /> <label for="upload_colB" _mstvisible="2">列 B</label></span> 
+					</div>
+				</div>
+<button id="file_download" type="button" class="btn btn-secondary btn-sm none" _msthidden="1"><i class="fa fa-save"></i><span _msthidden="1"> 保存</span></button> 
+			</div>
+			<div class="right">
+				<span class="switch left" tabindex="0"><input type="checkbox" id="isEmpty" /> <label for="isEmpty">排除空行</label></span> 
+			</div>
+		</div>
+		<div class="clear spacer-n" id="options">
+			<div class="w-33 left spacer-r xs-100 xs-spacer-s">
+				<label for="prefix">前缀</label> <input id="prefix" class="input-sm w-100" /> 
+				<p class="input-hint">
+					在每行的开头添加此项
+				</p>
+			</div>
+			<div class="w-33 left spacer-l spacer-r xs-100 xs-spacer-s">
+				<label for="infix">分隔符</label> <input id="infix" class="input-sm w-100" /> 
+				<p class="input-hint">
+					在每行中间添加此内容
+				</p>
+			</div>
+			<div class="w-33 left spacer-l xs-100 xs-spacer-s">
+				<label for="suffix">后缀</label> <input id="suffix" class="input-sm w-100" /> 
+				<p class="input-hint">
+					在每行末尾添加此内容
+				</p>
+			</div>
+		</div>
+<style>#output_text{height:522px}#input_colA,#input_colB{height:456px}@media (max-width:768px){#input_colA,#input_colB,#output_text{height:400px}}@media (max-width:414px){#input_colA,#input_colB,#output_text{height:514px}}@media (max-width:412px){#input_colA,#input_colB,#output_text{height:509px}}@media (max-width:384px){#input_colA,#input_colB,#output_text{height:418px}}@media (max-width:375px){#input_colA,#input_colB,#output_text{height:445px}}@media (max-width:360px){#input_colA,#input_colB,#output_text{height:418px}}@media (max-width:320px){#input_colA,#input_colB,#output_text{height:346px}}</style>
+		<div id="premerge" class="clear w-100">
+			<div class="clear w-100 spacer-y">
+				<div class="w-50 left main">
+					<label for="input_colA">列 A</label> <textarea id="input_colA" class="rounded-left" spellcheck="false" style="font-family:Arial;font-size:16px;"></textarea> 
+				</div>
+				<div class="w-50 left main">
+					<label for="input_colB">列 B</label> <textarea id="input_colB" class="rounded-right" spellcheck="false" style="font-family:Arial;font-size:16px;"></textarea> 
+				</div>
+			</div>
+			<div class="clear">
+				<div class="right xs-100 xs-left">
+					<button id="combineText" type="button" class="btn xs-left">连接合并</button> <button id="clearAll" type="button" class="btn btn-secondary xs-right">重置</button> 
+				</div>
+			</div>
+		</div>
+		<div id="merged" class="none" _msthidden="3">
+			<div class="clear w-100 spacer-y" _msthidden="2">
+				<div id="main" _msthidden="2">
+					<label for="output_text" _msthidden="1">Output</label> <textarea id="output_text" spellcheck="false" style="font-family:Arial;font-size:16px;"></textarea> 
+					<div class="clipboard" _msthidden="1">
+						<span class="tooltipped tooltipped-n" aria-label="Click to copy" role="button" _mstaria-label="184340" _msthidden="A"><i class="i-copy"></i></span> 
+					</div>
+				</div>
+			</div>
+			<div class="clear" _msthidden="1">
+				<span class="left hidden-xs-down" id="instances"></span> 
+				<div class="right xs-100" _msthidden="1">
+					<button id="startOver" type="button" class="btn xs-100 xs-right">返回</button> 
+				</div>
+			</div>
+		</div>
+	</div>
+</div> 
+ </div>
+ 
+ </div></div>
+ 
+ <div class="row"> 
+	<div class="col-sm-10  offset-sm-1 text-center">
+	<div id="result" class="alert alert-primary  my-2 text-break" style="display:none"> 
+	</div> 
+	</div></div>
+	<div class="row">
+	<div class="col-12 my-1">
+	<div id="ezoic-pub-ad-placeholder-103"></div></div></div>
+	<div class="row my-4">
+ 
+<div class="col-sm-12">
+ 
+<p>
+	将两个列表与一个选项组合在一起，以添加自定义前缀、后缀和分隔符。当您要逐行联接或合并两个文本文档时，这很有用。
+</p>
+ 
+<h2>
+	基本示例
+</h2>
+ 
+<hr>
+<p>
+	<span style="box-sizing:border-box;">连接名字和姓氏，作为分隔符。</span><code style="box-sizing:border-box;font-size:0.875rem;background:#F8F9FA;padding:0.2rem 0.4rem;">space</code> 
+</p>
+<span style="box-sizing:border-box;color:#24292F;font-family:&quot;font-size:16px;white-space:normal;">第 1 列第 2 列结果</span> 
+<pre style="box-sizing:border-box;margin-top:0px;margin-bottom:1.5rem;max-height:none;overflow-y:auto;background:#F8F9FA;padding:1rem;color:#24292F;font-size:16px;">Sarah
+Anthony
+William
+Steven</pre>
+<pre style="box-sizing:border-box;margin-top:0px;margin-bottom:1.5rem;max-height:none;overflow-y:auto;background:#F8F9FA;padding:1rem;color:#24292F;font-size:16px;">Mitchell
+Edwards
+Johnson
+Davis</pre>
+<pre style="box-sizing:border-box;margin-top:0px;margin-bottom:1.5rem;max-height:none;overflow-y:auto;background:#F8F9FA;padding:1rem;color:#24292F;font-size:16px;">Sarah Mitchell
+Anthony Edwards
+William Johnson
+Steven Davis</pre>
+<header class="widget-header" style="box-sizing:border-box;color:#24292F;font-family:&quot;font-size:16px;white-space:normal;">
+<h2>
+	排除空行
+</h2>
+</header>
+<hr>
+<p>
+	启用后，当两行均为空时，该工具将不会添加指定的前缀、后缀和/或分隔符。
+</p>
+<header class="widget-header" style="box-sizing:border-box;color:#24292F;font-family:&quot;font-size:16px;white-space:normal;">
+<h2>
+	<br />
+</h2>
+</header><script type='text/javascript' src="js/toast.js"></script> 	 
+<script>
+var colA=$("#input_colA"),colB=$("#input_colB"),area=$("#output_text"),examples=JSON.parse(localStorage.getItem("ta_examples"));function loadTextA(){var e=$("#upload_colA").get(0).files[0],t=new FileReader;t.onload=function(e){e=e.target.result;$("#input_colA").val(e)},t.readAsText(e,"UTF-8")}function loadTextB(){var e=$("#upload_colB").get(0).files[0],t=new FileReader;t.onload=function(e){e=e.target.result;$("#input_colB").val(e)},t.readAsText(e,"UTF-8")}function saveText(e,t){var n=navigator.userAgent.match(/MSIE\s([\d.]+)/),l=navigator.userAgent.match(/Trident\/7.0/)&&navigator.userAgent.match(/rv:11/),o=navigator.userAgent.match(/Edge/g),l=n?n[1]:l?11:o?12:-1;n&&l<10?console.log("No blobs on IE ver<10"):(t=(t=document.getElementById("output_text").value).replace(/\r?\n/g,"\r\n"),o=new Blob([t],{type:"text/plain"}),"null.txt"!=(e=prompt("File name:","New Document")+".txt")&&(-1<l?window.navigator.msSaveBlob(o,e):((n=document.createElement("a")).download=e,n.href=window.URL.createObjectURL(o),n.onclick=function(e){document.body.removeChild(e.target)},n.style.display="none",document.body.appendChild(n),n.click())))}1==examples&&(colA.val("A\nB\nC"),colB.val("1\n2\n3")),$("#combineText").click(function(){prefix=$("#prefix").val(),infix=$("#infix").val(),suffix=$("#suffix").val(),input1=colA.val().replace(/\r\n|\r|\n/gm,"\n").split("\n"),input2=colB.val().replace(/\r\n|\r|\n/gm,"\n").split("\n");for(var e=input1.length,t=input2.length,n=e+t,l=0,o=Math.max(input1.length,input2.length),i=[],l=0;l<o;l++)null==input1[l]&&(input1[l]=""),null==input2[l]&&(input2[l]=""),(!$("#isEmpty").prop("checked")||input1[l]+input2[l]!="")&&(i[l]=prefix+input1[l]+infix+input2[l]+suffix);i=i.join("\n"),$("#output_text").val(i),$("#instances").html("Combined Lines: "+n+" ("+e+", "+t+")"),$("#premerge, #file_upload, #options").hide(),$("#merged, #file_download").show(),Toast("Merged "+n+" lines")}),$("#startOver").click(function(){$("#merged, #file_download").hide(),$("#premerge, #file_upload, #options").show()}),$(".clipboard").click(function(){Clipboard(area)}),$("#clearAll").click(function(){$("#input_colA, #input_colB, #output_text").val("")}),$("#file_download").click(function(){saveText()});
+</script>
+</div>
+ 
+	</div>
+	</main>
+	</div>
+    
+      <div class="footer">
+	<hr>
+            <div class="container">
+                <div class="footer__inner ">
+                           
+                    <div class="footer__item ">
+					
+                     <a href="#">关于我们</a> | <a href="#">服务条款</a> | <a href="#">广告合作</a> | <a href="#" >隐私政策</a> 
+   
+                    </div>
+					<p > &copy; 2024 <a href="https://anky.cc">ANKY.CC</a> </p>
+                </div>
+            </div>
+        </div>
+		  
+  </body>
+ <script>
+        function completed(t) {
+          var e = t.responseText; 
+		  e = e .replace(/(\r\n)/gm, "<br>");
+          $("#result").html(e),
+            $("#result").show(),
+            copyToClipboard(document.getElementById("result"));
+        }
+        $(document).ready(function () {
+          $('[data-toggle="tooltip"]').tooltip();
+        });
+      </script>
+      <script>
+        function copyToClipboard(e) {
+          var t,
+            o,
+            n,
+            s,
+            d,
+            a = "_hiddenCopyText_",
+            c = "INPUT" === e.tagName || "TEXTAREA" === e.tagName;
+            c ? ((t = (n = e).selectionStart), (o = e.selectionEnd))
+            : ((n = document.getElementById(a)) ||
+                (((n = document.createElement("textarea")).style.position =
+                  "absolute"),
+                (n.style.left = "-9999px"),
+                (n.style.top = "0"),
+                (n.id = a),
+                document.body.appendChild(n)),
+              (n.textContent = e.textContent)),
+            (s = document.activeElement),
+            n.focus(),
+            n.setSelectionRange(0, n.value.length);
+          try {
+            d = document.execCommand("copy");
+          } catch (e) {
+            d = !1;
+          }
+          return (
+            s && "function" == typeof s.focus && s.focus(),
+            c ? e.setSelectionRange(t, o) : (n.textContent = ""),
+            d
+          );
+        }
+        
+      </script>
+</html>

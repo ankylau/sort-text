@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" /> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>文本差异对比 -  在线文本对比工具</title>
+	<meta name="keywords" content="文本差异对比,文本对比工具" />
+	<meta name="description" content="在线文本差异对比工具可通过逐行比较来查找两个列表或文本文件之间的差异" />
+ <link rel="stylesheet" href="../css/bootstrap.min.css " /> 
+ <script type='text/javascript' src='../js/jquery.min.js'></script>     
+
+</head>
+  <body>
+
+ <div class="info-form">
+<link rel="stylesheet" href="../css/text.css" />
+<style>table.diff tbody{font-size:.75rem}table.diff tbody th{width:34px;font-family:"Courier New",Courier,monospace;background:#f3f3f3;font-weight:400;text-align:center}table.diff thead{background:#f3f3f3}table.diff thead th{text-align:left;font-weight:500}table.diff .texttitle{text-align:center}table.diff .empty{background:#ddd}table.diff .skip{background:#efefef}table.diff .insert{background:#b6d7a8}table.diff .replace{background:#ffe599}table.diff .delete{background:#ea9999}.dark table.diff td,.dark table.diff th{border-color:rgba(255,255,255,.05)}.dark table.diff tbody th,.dark table.diff thead{background:#444}.dark table.diff .equal{background:#333}.dark table.diff .empty{background:#222}.dark table.diff .delete,.dark table.diff .insert,.dark table.diff .replace{color:#111} #baseText,#newText{height:522px}@media (max-width:768px){#baseText,#newText{height:400px}}@media (max-width:414px){#baseText,#newText{height:514px}}@media (max-width:412px){#baseText,#newText{height:509px}}@media (max-width:384px){#baseText,#newText{height:418px}}@media (max-width:375px){#baseText,#newText{height:445px}}@media (max-width:360px){#baseText,#newText{height:418px}}@media (max-width:320px){#baseText,#newText{height:346px}}</style>
+<div class="widget w-100">
+	<header class="widget-header">
+	<h2>
+		文本对比检测
+	</h2>
+</header>
+	<div class="widget-body">
+		<div class="clear input_btn xs-spacer-n">
+			<div class="left">
+				<div class="dropdown">
+					<button type="button" class="btn btn-secondary btn-sm dropdown-trigger">Load</button> 
+					<div class="dropdown-menu" style="display:none;">
+						<span class="file-button" tabindex="0"><input type="file" id="upload_colA" onchange="loadTextA()" accept=".txt" /> <label for="upload_colA">文本A</label> </span><span class="file-button" tabindex="0"><input type="file" id="upload_colB" onchange="loadTextB()" accept=".txt" /> <label for="upload_colB">文本 B</label></span> 
+					</div>
+				</div>
+			</div>
+			<div class="right">
+				<select id="settings" class="input-sm"><option value="1">并排显示</option><option value="2">内联显示</option></select> 
+			</div>
+		</div>
+		<div class="clear w-100 spacer-y" id="diffinput">
+			<div class="w-50 left main">
+				<label for="baseText">文本 A</label> <textarea id="baseText" spellcheck="false" style="font-family:Arial;font-size:16px;"></textarea> 
+			</div>
+			<div class="w-50 left main">
+				<label for="newText">文本 B</label> <textarea id="newText" spellcheck="false" style="font-family:Arial;font-size:16px;"></textarea> 
+			</div>
+		</div>
+		<div class="clear wm-100">
+			<div id="diffoutput" class="spacer-s none xs-spacer-n xs-spacer-s">
+			</div>
+		</div>
+		<div class="clear input_btn">
+			<div class="right xs-100 xs-left">
+				<button id="compareText" type="button" class="btn xs-left">对比</button> <button id="clearAll" type="button" class="btn btn-secondary xs-right">重置</button> 
+			</div>
+		</div>
+		<div class="clear none output_btn">
+			<div class="right xs-100 xs-spacer-n">
+				<button id="goBack" type="button" class="btn xs-left">返回</button> <button id="resetAll" type="button" class="btn btn-secondary xs-right">重置</button> 
+			</div>
+		</div>
+	</div>
+</div> 
+ </div>
+
+
+<script type='text/javascript' src="/../js/toast.js"></script> 	 
+<script type='text/javascript' src="../js/different.js"></script>
+		  
+  </body>
+ <script>
+        function completed(t) {
+          var e = t.responseText; 
+		  e = e .replace(/(\r\n)/gm, "<br>");
+          $("#result").html(e),
+            $("#result").show(),
+            copyToClipboard(document.getElementById("result"));
+        }
+        $(document).ready(function () {
+          $('[data-toggle="tooltip"]').tooltip();
+        });
+      </script>
+      <script>
+        function copyToClipboard(e) {
+          var t,
+            o,
+            n,
+            s,
+            d,
+            a = "_hiddenCopyText_",
+            c = "INPUT" === e.tagName || "TEXTAREA" === e.tagName;
+            c ? ((t = (n = e).selectionStart), (o = e.selectionEnd))
+            : ((n = document.getElementById(a)) ||
+                (((n = document.createElement("textarea")).style.position =
+                  "absolute"),
+                (n.style.left = "-9999px"),
+                (n.style.top = "0"),
+                (n.id = a),
+                document.body.appendChild(n)),
+              (n.textContent = e.textContent)),
+            (s = document.activeElement),
+            n.focus(),
+            n.setSelectionRange(0, n.value.length);
+          try {
+            d = document.execCommand("copy");
+          } catch (e) {
+            d = !1;
+          }
+          return (
+            s && "function" == typeof s.focus && s.focus(),
+            c ? e.setSelectionRange(t, o) : (n.textContent = ""),
+            d
+          );
+        }
+        
+      </script>
+</html>
